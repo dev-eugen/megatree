@@ -1,19 +1,14 @@
-import { Application, Router, parse } from "./deps.ts"; 
+import { Application, Router, parse } from "./deps.ts" 
+import router from "./router.ts"
+const app = new Application()
 
-const app = new Application();
 
-const router = new Router();
 
-router
-    .get('/', (ctx) => {
-      ctx.response.body = 'Welcome to megatree';
-    })
+app.use(router.routes())
+app.use(router.allowedMethods())
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.addEventListener('listen', () => console.log('Running..'))
 
-app.addEventListener('listen', () => console.log('Running..'));
-
-const DEFAULT_PORT = 8000;
-const argPort = parse(Deno.args).port;
+const DEFAULT_PORT = 8000
+const argPort = parse(Deno.args).port
 await app.listen({ port: argPort ?? DEFAULT_PORT })
