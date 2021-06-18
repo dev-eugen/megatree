@@ -6,7 +6,7 @@ const router = new Router();
 
 router
     .get('/', (ctx) => {
-      ctx.response.body = 'Welcome to notes API';
+      ctx.response.body = 'Welcome to megatree';
     })
 
 app.use(router.routes());
